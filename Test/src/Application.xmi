@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<www.ObjectDiagram_Meta.com:Application
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:www.ObjectDiagram_Meta.com="www.ObjectDiagram_Meta.com"
+    xsi:schemaLocation="www.ObjectDiagram_Meta.com ../../MDD_SmartPhone/AndroidPSM/MetaModel/ObjectDiagram_Meta.ecore">
+  <activity>
+    <view xsi:type="www.ObjectDiagram_Meta.com:ConstraintLayout">
+      <view
+          xsi:type="www.ObjectDiagram_Meta.com:Button"/>
+      <view
+          xsi:type="www.ObjectDiagram_Meta.com:TextView"/>
+    </view>
+  </activity>
+  <activity>
+    <view xsi:type="www.ObjectDiagram_Meta.com:ConstraintLayout">
+      <view
+          xsi:type="www.ObjectDiagram_Meta.com:Button"/>
+      <view
+          xsi:type="www.ObjectDiagram_Meta.com:TextView"/>
+    </view>
+  </activity>
+</www.ObjectDiagram_Meta.com:Application>

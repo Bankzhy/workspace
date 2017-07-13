@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<www.ObjectDiagram_Meta.com:Application
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:www.ObjectDiagram_Meta.com="www.ObjectDiagram_Meta.com"
+    xsi:schemaLocation="www.ObjectDiagram_Meta.com ../../MetaModel/ObjectDiagram_Meta.ecore"
+    name="TwoPage">
+  <screen name="Page1">
+    <widget
+        xsi:type="www.ObjectDiagram_Meta.com:Label"
+        name="Label1"
+        horizontal="50"
+        vertical="25"
+        width="auto"
+        height="auto"
+        text="Screen1"/>
+    <widget
+        xsi:type="www.ObjectDiagram_Meta.com:Button"
+        name="NextButton"
+        horizontal="50"
+        vertical="75"
+        width="50"
+        height="auto"
+        text="Next"/>
+  </screen>
+  <screen name="Page2">
+    <widget
+        xsi:type="www.ObjectDiagram_Meta.com:Label"
+        name="Label2"
+        horizontal="50"
+        vertical="25"
+        width="auto"
+        height="auto"
+        text="Screen2"/>
+    <widget
+        xsi:type="www.ObjectDiagram_Meta.com:Button"
+        name="BackButton"
+        horizontal="50"
+        vertical="75"
+        width="50"
+        height="auto"
+        text="Back"/>
+  </screen>
+</www.ObjectDiagram_Meta.com:Application>

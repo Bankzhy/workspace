@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="ExportRepresentationsAsImagesDialog">
+		<item value="JPG" key="ExportRepresentationsAsImagesDialog.imageFormat"/>
+		<list key="ExportRepresentationsAsImagesDialog.folder">
+			<item value="/Users/kishi/Documents/workspace/MDD_SmartPhone/PIM/MetaModel"/>
+		</list>
+	</section>
+</section>

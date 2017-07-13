@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<www.ObjectDiagram_Meta.com:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:www.ObjectDiagram_Meta.com="www.ObjectDiagram_Meta.com" name="TwoPage">
+  <uiviewcontroller xsi:type="www.ObjectDiagram_Meta.com:UIPageViewController" id="Page1" name="Page1">
+    <uiview xsi:type="www.ObjectDiagram_Meta.com:UILabel" id="Label1" width="auto" height="auto" horizontal="50.0" vertical="25.0" text="Screen1"/>
+    <uiview xsi:type="www.ObjectDiagram_Meta.com:UIButton" id="NextButton" width="50" height="auto" horizontal="50.0" vertical="75.0" text="Next"/>
+  </uiviewcontroller>
+  <uiviewcontroller xsi:type="www.ObjectDiagram_Meta.com:UIPageViewController" id="Page2" name="Page2">
+    <uiview xsi:type="www.ObjectDiagram_Meta.com:UILabel" id="Label2" width="auto" height="auto" horizontal="50.0" vertical="25.0" text="Screen2"/>
+    <uiview xsi:type="www.ObjectDiagram_Meta.com:UIButton" id="BackButton" width="50" height="auto" horizontal="50.0" vertical="75.0" text="Back"/>
+  </uiviewcontroller>
+</www.ObjectDiagram_Meta.com:Application>

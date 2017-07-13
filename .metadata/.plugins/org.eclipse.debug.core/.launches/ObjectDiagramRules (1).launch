@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.m2m.atl.adt.launching.atlTransformation">
+<stringAttribute key="ATL File Name" value="/TestATL/Rules/ToiOS/ObjectDiagramRules.atl"/>
+<stringAttribute key="ATL VM" value="EMF-specific VM"/>
+<stringAttribute key="ATL_COMPILER" value="atl2006"/>
+<booleanAttribute key="IS_REFINING" value="false"/>
+<mapAttribute key="Input">
+<mapEntry key="PIMObjectDiagram" value="MMObjectDiagram"/>
+</mapAttribute>
+<mapAttribute key="Libs"/>
+<mapAttribute key="Model Handler">
+<mapEntry key="MMObjectDiagram" value="EMF"/>
+<mapEntry key="MMPSM1ObjectDiagram" value="EMF"/>
+</mapAttribute>
+<mapAttribute key="ModelType">
+<mapEntry key="MMObjectDiagram" value="METAMODELINPUT"/>
+<mapEntry key="MMPSM1ObjectDiagram" value="METAMODELOUTPUT"/>
+<mapEntry key="PIMObjectDiagram" value="MODELINPUT"/>
+<mapEntry key="PSM1ObjectDiagram" value="MODELOUTPUT"/>
+</mapAttribute>
+<mapAttribute key="Options">
+<mapEntry key="OPTION_CLEAR" value="false"/>
+<mapEntry key="OPTION_CONTENT_TYPE" value="false"/>
+<mapEntry key="OPTION_DERIVED" value="true"/>
+<mapEntry key="allowInterModelReferences" value="false"/>
+<mapEntry key="printExecutionTime" value="false"/>
+<mapEntry key="step" value="false"/>
+<mapEntry key="supportUML2Stereotypes" value="false"/>
+</mapAttribute>
+<listAttribute key="OrderedInput">
+<listEntry value="PIMObjectDiagram"/>
+</listAttribute>
+<listAttribute key="OrderedOutput">
+<listEntry value="PSM1ObjectDiagram"/>
+</listAttribute>
+<mapAttribute key="Output">
+<mapEntry key="PSM1ObjectDiagram" value="MMPSM1ObjectDiagram"/>
+</mapAttribute>
+<mapAttribute key="Path">
+<mapEntry key="MMObjectDiagram" value="/MDD_SmartPhone/PIM/MetaModel/ObjectDiagram_Meta.ecore"/>
+<mapEntry key="MMPSM1ObjectDiagram" value="/MDD_SmartPhone/iOSPSM/MetaModel/ObjectDiagram_Meta.ecore"/>
+<mapEntry key="PIMObjectDiagram" value="/MDD_SmartPhone/PIM/Model/Test1_TwoPage/TwoPage_Application.xmi"/>
+<mapEntry key="PSM1ObjectDiagram" value="/Test/src/testi"/>
+</mapAttribute>
+<listAttribute key="Superimpose"/>
+</launchConfiguration>

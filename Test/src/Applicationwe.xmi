@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<www.StateMachineDiagram_Meta.com:Application
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:www.StateMachineDiagram_Meta.com="www.StateMachineDiagram_Meta.com"
+    xsi:schemaLocation="www.StateMachineDiagram_Meta.com ../../MDD_SmartPhone/PIM/MetaModel/StateMachineDiagram_Meta.ecore">
+  <statemachine
+      name="parent">
+    <vertex
+        xsi:type="www.StateMachineDiagram_Meta.com:Screen"
+        outgoing="//@statemachine.0/@transition.0"
+        incoming="//@statemachine.0/@transition.2"
+        name="1"/>
+    <vertex
+        xsi:type="www.StateMachineDiagram_Meta.com:Screen"
+        outgoing="//@statemachine.0/@transition.1 //@statemachine.0/@transition.2"
+        incoming="//@statemachine.0/@transition.0 //@statemachine.0/@transition.3"
+        name="2"/>
+    <vertex
+        xsi:type="www.StateMachineDiagram_Meta.com:Screen"
+        outgoing="//@statemachine.0/@transition.3"
+        incoming="//@statemachine.0/@transition.1"
+        name="3">
+      <statemachine
+          name="child">
+        <vertex
+            xsi:type="www.StateMachineDiagram_Meta.com:Screen"/>
+        <vertex
+            xsi:type="www.StateMachineDiagram_Meta.com:Screen"/>
+      </statemachine>
+    </vertex>
+    <transition
+        source="//@statemachine.0/@vertex.0"
+        target="//@statemachine.0/@vertex.1"
+        name="12"/>
+    <transition
+        source="//@statemachine.0/@vertex.1"
+        target="//@statemachine.0/@vertex.2"
+        name="23"/>
+    <transition
+        source="//@statemachine.0/@vertex.1"
+        target="//@statemachine.0/@vertex.0"
+        name="21"/>
+    <transition
+        source="//@statemachine.0/@vertex.2"
+        target="//@statemachine.0/@vertex.1"
+        name="32"/>
+  </statemachine>
+</www.StateMachineDiagram_Meta.com:Application>

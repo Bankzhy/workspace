@@ -1,0 +1,34 @@
+-- @path MMPIMStateMachineDiagram=/MDD_SmartPhone/PIM/MetaModel/StateMachineDiagram_Meta.ecore
+-- @path MMPSMStateMachineDiagram=/MDD_SmartPhone/AndroidPSM/MetaModel/StateMachineDiagram_Meta.ecore
+
+module StateMachineDiagramRule;
+create PSMStateMachineDiagram : MMPSMStateMachineDiagram from PIMStateMachineDiagram : MMPIMStateMachineDiagram;
+
+rule Application2Application{
+	from
+		pim:MMPIMStateMachineDiagram!Application
+	to
+		psm1:MMPSMStateMachineDiagram!Application(name <- pim.name,statemachine <- pim.statemachine)
+}
+
+rule StateMachine2StateMachine{
+	from
+		pim:MMPIMStateMachineDiagram!StateMachine
+	to
+		psm1:MMPSMStateMachineDiagram!StateMachine(name <- pim.name,transition <- pim.transition,vertex <- pim.vertex)
+}
+
+rule Screen2Activity{
+	from
+		pim:MMPIMStateMachineDiagram!Screen
+	to
+		psm1:MMPSMStateMachineDiagram!Activity(name <- pim.name,incoming <- pim.incoming,outgoing <- pim.outgoing,statemachine <- pim.statemachine)
+}
+
+rule Transition2Transition{
+	from
+		pim:MMPIMStateMachineDiagram!Transition
+	to
+		psm1:MMPSMStateMachineDiagram!Transition(name <- pim.name,trigger <- pim.trigger,souce <- pim.source,target <- pim.target)
+}
+

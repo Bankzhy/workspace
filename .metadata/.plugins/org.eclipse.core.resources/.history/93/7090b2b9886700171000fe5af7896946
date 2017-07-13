@@ -1,0 +1,143 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.text.Document;
+
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+
+public class AndroidTransition {
+	static List<Activity> m_ActivityList=new ArrayList<AndroidTransition.Activity>();
+	static List<Transition> m_TransitionList=new ArrayList<AndroidTransition.Transition>(); 
+	//static List<Activity> m_ObjActivityList=new ArrayList<AndroidTransition.Activity>();
+	static List<Activity> m_CandidateActivityList=new ArrayList<AndroidTransition.Activity>();
+	
+	public static void main(String[] args) throws JDOMException, IOException {
+		//List<Activity> m_ActivityList=new List<Activity>();
+		
+		SAXBuilder builder=new SAXBuilder();
+		org.jdom2.Document smDoc=builder.build("src/PSM1Model/state");
+		org.jdom2.Document objDoc=builder.build("src/PSM1Model/test");
+		Element smRoot=smDoc.getRootElement();
+		Element objRoot=objDoc.getRootElement();
+		
+	//	System.out.println(root);
+		
+		Element statemachineElement=smRoot.getChild("statemachine");
+		List<Element> vertexElement=statemachineElement.getChildren("vertex");
+		for(Element ve:vertexElement){
+			
+			//System.out.println(ve.getAttributeValue("name"));
+			if(ve.getAttributeValue("type", ve.getNamespace("xsi")).equals("www.StateMachineDiagram_meta.com:Activity")){
+				m_ActivityList.add(ToActivity(ve));
+				//		System.out.println("true")
+			}
+		}
+		List<Element> transitionElement=statemachineElement.getChildren("transition");
+		for(Element tran:transitionElement){
+			m_TransitionList.add(toTransition(tran));
+		}
+		
+		List<Element> obj_activityElement=objRoot.getChildren("activity");
+		for(Element at:obj_activityElement){
+			List<Element> view=at.getChildren("view");
+			for(Element v:view){
+				if(v.getAttribute("type", v.getNamespace("xsi")).equals("www.ObjectDiagram_Meta.com:Button")){
+					System.out.println(v.getAttributeValue("name"));
+				}
+			}
+		}
+		//CheckA2APattern();
+		//System.out.println(vertexElement);
+		//System.out.println(stateElement);
+		// TODO Auto-generated method stub
+
+	}
+	private static void MerageActivity(Element at){
+		if(at.getAttributeValue("isMain").equals("true")){
+			for(int i=0;i<m_ActivityList.size();i++){
+				if(at.getAttributeValue("name").equals(m_ActivityList.get(i).name)){
+					m_ActivityList.get(i).isMain=true;
+				}
+			}
+		}
+		for(int i=0;i<m_ActivityList.size();i++){
+			if(m_ActivityList.get(i).name.equals(at.getAttributeValue("name"))){
+				//m_ActivityList.get(i).buttonList=
+			}
+		}
+	}
+	
+	public static void  CheckA2APattern(){
+		for(int i=0;i<m_ActivityList.size();i++){
+			if(IsGoAndBack(m_ActivityList.get(i), GetTarget(m_ActivityList.get(i)))){
+				//System.out.println(m_ActivityList.get(i).name);
+				m_CandidateActivityList.add(m_ActivityList.get(i));
+			}
+			//IsGoAndBack(m_ActivityList.get(i), GetTarget(m_ActivityList.get(i)));
+		}
+		
+	}
+	
+	private static Activity GetTarget(Activity a){
+		if(a.outgoing!=null){
+			for(int i=0;i<m_ActivityList.size();i++){
+				if(m_ActivityList.get(i).incomeing.equals(a.outgoing)){
+					return m_ActivityList.get(i);
+				}
+			}
+		}
+		return null;
+	}
+	private static boolean IsGoAndBack(Activity a1,Activity a2){
+		if(a1.outgoing.equals(a2.incomeing)&&a1.incomeing.equals(a2.outgoing)){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private static Activity ToActivity(Element ve){
+		Activity newActivity=new Activity();
+		newActivity.name=ve.getAttributeValue("name");
+		newActivity.incomeing=ve.getAttributeValue("incoming");
+		newActivity.outgoing=ve.getAttributeValue("outgoing");
+		return newActivity;
+	}
+	private static Transition toTransition(Element tran){
+		Transition newTransition= new Transition();
+		newTransition.name=tran.getAttributeValue("name");
+		newTransition.source=tran.getAttributeValue("source");
+		newTransition.target=tran.getAttributeValue("target");
+		newTransition.trigger=tran.getAttributeValue("trigger");
+		return newTransition;
+	}
+	private static Button ToButton(Element button){
+		Button newButton=new Button();
+		newButton.name=button.getAttributeValue("name");
+		return newButton;
+	}
+	private static List<Button> GetButtonList(Element at){
+		//Element layout=at.getChild("", ns)
+		return null;
+	}
+	private static class Activity{
+		String name;
+		String outgoing;
+		String incomeing;
+		boolean isMain=false;
+		List<Button> buttonList=new ArrayList<AndroidTransition.Button>();
+	}
+	
+	private static class Transition{
+		String name;
+		String source;
+		String target;
+		String trigger;
+	}
+	private static class Button{
+		String name;
+	}
+}

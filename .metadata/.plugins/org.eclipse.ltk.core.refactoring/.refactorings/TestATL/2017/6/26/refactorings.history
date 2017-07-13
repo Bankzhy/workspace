@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;ObjectDiagramRule.asm, ObjectDiagramRule.atl&apos; to &apos;ToAndroid&apos;" description="Move 2 resources to &apos;ToAndroid&apos;" destination="Rules/ToAndroid" element1="ObjectDiagramRule.asm" element2="ObjectDiagramRule.atl" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="2" stamp="1498618447950" updateReferences="true"/>
+</session>

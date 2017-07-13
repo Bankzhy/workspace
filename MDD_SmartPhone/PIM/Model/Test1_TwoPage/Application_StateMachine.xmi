@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<www.StateMachineDiagram_Meta.com:Application
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:www.StateMachineDiagram_Meta.com="www.StateMachineDiagram_Meta.com"
+    xsi:schemaLocation="www.StateMachineDiagram_Meta.com ../../MetaModel/StateMachineDiagram_Meta.ecore">
+  <statemachine>
+    <vertex
+        xsi:type="www.StateMachineDiagram_Meta.com:Screen"
+        outgoing="//@statemachine.0/@transition.0"
+        incoming="//@statemachine.0/@transition.1"
+        name="Screen1"/>
+    <vertex
+        xsi:type="www.StateMachineDiagram_Meta.com:Screen"
+        outgoing="//@statemachine.0/@transition.1"
+        incoming="//@statemachine.0/@transition.0"
+        name="Screen2"/>
+    <transition
+        source="//@statemachine.0/@vertex.0"
+        target="//@statemachine.0/@vertex.1"
+        name="ToScreen2"
+        trigger="NextButton"/>
+    <transition
+        source="//@statemachine.0/@vertex.1"
+        target="//@statemachine.0/@vertex.0"
+        name="ToScreen1"
+        trigger="BackButton"/>
+  </statemachine>
+</www.StateMachineDiagram_Meta.com:Application>

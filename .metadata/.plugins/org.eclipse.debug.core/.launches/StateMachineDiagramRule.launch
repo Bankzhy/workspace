@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.m2m.atl.adt.launching.atlTransformation">
+<stringAttribute key="ATL File Name" value="/MDD_SmartPhone/FirstTransitionRules/ToAndroid/Test1_Rules/StateMachineDiagramRule.atl"/>
+<stringAttribute key="ATL VM" value="EMF-specific VM"/>
+<booleanAttribute key="IS_REFINING" value="false"/>
+<mapAttribute key="Input">
+<mapEntry key="PIMStateMachineDiagram" value="MMPIMStateMachineDiagram"/>
+</mapAttribute>
+<mapAttribute key="Libs"/>
+<mapAttribute key="Output">
+<mapEntry key="PSMStateMachineDiagram" value="MMPSMStateMachineDiagram"/>
+</mapAttribute>
+<mapAttribute key="Path">
+<mapEntry key="MMPIMStateMachineDiagram" value="/MDD_SmartPhone/PIM/MetaModel/StateMachineDiagram_Meta.ecore"/>
+<mapEntry key="MMPSMStateMachineDiagram" value="/MDD_SmartPhone/AndroidPSM/MetaModel/StateMachineDiagram_Meta.ecore"/>
+</mapAttribute>
+</launchConfiguration>

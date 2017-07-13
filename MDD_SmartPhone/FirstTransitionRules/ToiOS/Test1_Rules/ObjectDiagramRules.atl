@@ -1,0 +1,35 @@
+-- @path MMPSM1ObjectDiagram=/MDD_SmartPhone/iOSPSM/MetaModel/ObjectDiagram_Meta.ecore
+-- @path MMObjectDiagram=/MDD_SmartPhone/PIM/MetaModel/ObjectDiagram_Meta.ecore
+
+module ObjectDiagramRules;
+create PSM1ObjectDiagram : MMPSM1ObjectDiagram from PIMObjectDiagram : MMObjectDiagram;
+
+rule Application2Application{
+	from
+		pim:MMObjectDiagram!Application
+	to
+		psm1:MMPSM1ObjectDiagram!Application(name <- pim.name,uiviewcontroller <- pim.screen)
+}
+
+rule Screen2UIViewController{
+	from
+		pim:MMObjectDiagram!Screen
+	to
+		psm1:MMPSM1ObjectDiagram!UIPageViewController(id <- pim.name,name <- pim.name,uiview <- pim.widget)
+}
+
+rule Button2UIButton{
+	from
+		pim:MMObjectDiagram!Button
+	to
+		psm1:MMPSM1ObjectDiagram!UIButton(id <- pim.name,text <- pim.text,
+			height <- pim.height,width <- pim.width,horizontal <- pim.horizontal,vertical <- pim.vertical)
+}
+
+rule Label2UILabel{
+	from
+		pim:MMObjectDiagram!Label
+	to
+		psm1:MMPSM1ObjectDiagram!UILabel(id <- pim.name,text <- pim.text,
+			height <- pim.height,width <- pim.width,horizontal <- pim.horizontal,vertical <- pim.vertical)
+}

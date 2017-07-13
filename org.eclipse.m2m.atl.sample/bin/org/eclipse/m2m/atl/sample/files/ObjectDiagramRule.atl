@@ -1,0 +1,30 @@
+-- @path MMPSMObject=/MDD_SmartPhone/AndroidPSM/MetaModel/ObjectDiagram_Meta.ecore
+-- @path MMPIMObject=/MDD_SmartPhone/PIM/MetaModel/ObjectDiagram_Meta.ecore
+
+module ObjectDiagramRule;
+create PSM1 : MMPSMObject from PIM : MMPIMObject;
+
+rule App2App{
+	from 
+	 	pim:MMPIMObject!Application
+	to
+		psm1:MMPSMObject!Application(name <- pim.name,activity <- pim.screen)
+}
+
+rule Screen2ActivityAndConstraintLayout{
+	from
+		pim:MMPIMObject!Screen
+	to
+		psm1:MMPSMObject!Activity(isMain <- pim.isMain,name <- pim.name,
+			view <- defaultLayout),
+		defaultLayout:MMPSMObject!ConstraintLayout(id <- pim.name,name <- pim.name,view <- pim.widget)
+}
+
+rule Widget2ViewWidget{
+	from
+		pim:MMPIMObject!Widget
+	to
+		psm1:MMPSMObject!Widget(name <- pim.name,id <- pim.name,
+			horizontal <- pim.horizontal,vertical <- pim.horizontal,
+			width <- pim.width,height <- pim.height)
+}

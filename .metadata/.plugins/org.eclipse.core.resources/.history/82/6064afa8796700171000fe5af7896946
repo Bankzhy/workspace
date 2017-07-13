@@ -1,0 +1,97 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.text.Document;
+
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+
+public class AndroidTransition {
+	static List<Activity> m_ActivityList=new ArrayList<AndroidTransition.Activity>();
+	static List<Transition> m_TransitionList=new ArrayList<AndroidTransition.Transition>(); 
+	public static void main(String[] args) throws JDOMException, IOException {
+		//List<Activity> m_ActivityList=new List<Activity>();
+		
+		SAXBuilder builder=new SAXBuilder();
+		org.jdom2.Document doc=builder.build("src/PSM1Model/state");
+		Element root=doc.getRootElement();
+	//	System.out.println(root);
+		
+		Element statemachineElement=root.getChild("statemachine");
+		List<Element> vertexElement=statemachineElement.getChildren("vertex");
+		for(Element ve:vertexElement){
+			
+			//System.out.println(ve.getAttributeValue("name"));
+			if(ve.getAttributeValue("type", ve.getNamespace("xsi")).equals("www.StateMachineDiagram_meta.com:Activity")){
+				m_ActivityList.add(ToActivity(ve));
+				//		System.out.println("true")
+			}
+		}
+		List<Element> transitionElement=statemachineElement.getChildren("transition");
+		for(Element tran:transitionElement){
+			m_TransitionList.add(toTransition(tran));
+		}
+		//CheckA2APattern();
+		//System.out.println(vertexElement);
+		//System.out.println(stateElement);
+		// TODO Auto-generated method stub
+
+	}
+	public static void  CheckA2APattern(){
+		for(int i=0;i<m_ActivityList.size();i++){
+			if(IsGoAndBack(m_ActivityList.get(i), GetTarget(m_ActivityList.get(i)))){
+				System.out.println(m_ActivityList.get(i).name);
+			}
+			//IsGoAndBack(m_ActivityList.get(i), GetTarget(m_ActivityList.get(i)));
+		}
+		
+	}
+	
+	private static Activity GetTarget(Activity a){
+		if(a.outgoing!=null){
+			for(int i=0;i<m_ActivityList.size();i++){
+				if(m_ActivityList.get(i).incomeing.equals(a.outgoing)){
+					return m_ActivityList.get(i);
+				}
+			}
+		}
+		return null;
+	}
+	private static boolean IsGoAndBack(Activity a1,Activity a2){
+		if(a1.outgoing.equals(a2.incomeing)&&a1.incomeing.equals(a2.outgoing)){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private static Activity ToActivity(Element ve){
+		Activity newActivity=new Activity();
+		newActivity.name=ve.getAttributeValue("name");
+		newActivity.incomeing=ve.getAttributeValue("incoming");
+		newActivity.outgoing=ve.getAttributeValue("outgoing");
+		return newActivity;
+	}
+	private static Transition toTransition(Element tran){
+		Transition newTransition= new Transition();
+		newTransition.name=tran.getAttributeValue("name");
+		newTransition.source=tran.getAttributeValue("source");
+		newTransition.target=tran.getAttributeValue("target");
+		newTransition.trigger=tran.getAttributeValue("trigger");
+		return newTransition;
+	}
+	private static class Activity{
+		String name;
+		String outgoing;
+		String incomeing;
+	}
+	
+	private static class Transition{
+		String name;
+		String source;
+		String target;
+		String trigger;
+	}
+}
