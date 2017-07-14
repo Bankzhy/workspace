@@ -1,5 +1,7 @@
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.text.Document;
@@ -7,14 +9,16 @@ import javax.swing.text.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 public class AndroidTransition {
 	static List<Activity> m_ActivityList=new ArrayList<AndroidTransition.Activity>();
 	static List<Transition> m_TransitionList=new ArrayList<AndroidTransition.Transition>(); 
 	//static List<Activity> m_ObjActivityList=new ArrayList<AndroidTransition.Activity>();
 	static List<Activity> m_CandidateActivityList=new ArrayList<AndroidTransition.Activity>();
-	
-	public static void main(String[] args) throws JDOMException, IOException {
+	static HashMap<String, String> m_FixMap=new HashMap<String, String>();
+	public static void main(String[] args) throws Exception {
 		//List<Activity> m_ActivityList=new List<Activity>();
 		
 		SAXBuilder builder=new SAXBuilder();
@@ -42,6 +46,8 @@ public class AndroidTransition {
 		
 		List<Element> obj_activityElement=objRoot.getChildren("activity");
 		for(Element at:obj_activityElement){
+			MerageActivity(at);
+//			System.out.println(GetButtonList(at));
 //			Element layout=at.getChild("view");
 //			System.out.println(layout.getAttributeValue("name"));
 //			List<Element> view=at.getChildren("view");
@@ -50,15 +56,39 @@ public class AndroidTransition {
 //					System.out.println(v.getAttributeValue("name"));
 //				}
 //			}
+			
+			
 		}
+		
+		
+		CheckA2APattern();
+		FixA2Apattern();		
+		for(Element at:obj_activityElement){
+			DeleteButtonInFile(at,objDoc);
+		}
+		
+		
+		
+		
+//		System.out.println("ds");
+//		for(Activity at:m_ActivityList){
+////			System.out.println(at.name);
+//			for(Button bt:at.buttonList){
+//				System.out.println(bt.name);
+//			}
+//			//System.out.println(at.buttonList);
+//		}
 		//CheckA2APattern();
 		//System.out.println(vertexElement);
 		//System.out.println(stateElement);
+		
+//		CheckA2APattern();
+//		FixA2Apattern();
 		// TODO Auto-generated method stub
 
 	}
 	private static void MerageActivity(Element at){
-		if(at.getAttributeValue("isMain").equals("true")){
+		if(at.getAttributeValue("isMain")!=null){
 			for(int i=0;i<m_ActivityList.size();i++){
 				if(at.getAttributeValue("name").equals(m_ActivityList.get(i).name)){
 					m_ActivityList.get(i).isMain=true;
@@ -68,6 +98,8 @@ public class AndroidTransition {
 		for(int i=0;i<m_ActivityList.size();i++){
 			if(m_ActivityList.get(i).name.equals(at.getAttributeValue("name"))){
 				//m_ActivityList.get(i).buttonList=
+				m_ActivityList.get(i).buttonList=GetButtonList(at);
+				
 			}
 		}
 	}
@@ -82,7 +114,53 @@ public class AndroidTransition {
 		}
 		
 	}
-	
+	public static void FixA2Apattern(){
+		for(int i=0;i<m_CandidateActivityList.size();i++)
+		{
+			for(int j=0;j<m_CandidateActivityList.get(i).buttonList.size();j++){
+				if(m_CandidateActivityList.get(i).buttonList.get(j).name.matches(".*"+"Back"+".*")){
+					m_FixMap.put(m_CandidateActivityList.get(i).name, m_CandidateActivityList.get(i).buttonList.get(j).name);
+					DeleteButtonInList(m_CandidateActivityList.get(i).name, m_CandidateActivityList.get(i).buttonList.get(j).name);
+					//System.out.println(true);
+				}
+			}
+		}
+	}
+	private static void DeleteButtonInList(String actName,String btName){
+		for(int i=0;i<m_ActivityList.size();i++){
+			if(m_ActivityList.get(i).name.equals(actName)){
+				for(int j=0;i<m_ActivityList.get(i).buttonList.size();j++){
+					if(m_ActivityList.get(i).buttonList.get(j).name.equals(btName)){
+						m_ActivityList.get(i).buttonList.remove(j);
+					}
+				}
+			}
+		}
+		
+	}
+	private static void DeleteButtonInFile(Element at,org.jdom2.Document doc) throws Exception{
+		
+		if(m_FixMap.containsKey(at.getAttributeValue("name"))){
+			Element layout=at.getChild("view");
+			List<Element> viewList=layout.getChildren("view");
+//			System.out.println(viewList);
+			for(Element v:viewList){
+				if(v.getAttributeValue("type",v.getNamespace("xsi")).equals("www.ObjectDiagram_Meta.com:Button")||
+					v.getAttributeValue("name").equals(m_FixMap.get(at.getAttributeValue("name"))) )
+				{
+					System.out.println(v.getAttributeValue("name"));
+					layout.removeContent(v);
+					
+					XMLOutputter out =new XMLOutputter();
+					out.setFormat(Format.getCompactFormat().setEncoding("GBK"));
+					out.output(doc,new FileWriter("src/PSM1Model/test2"));
+				}
+			}
+		}
+		
+		
+		
+	}
 	private static Activity GetTarget(Activity a){
 		if(a.outgoing!=null){
 			for(int i=0;i<m_ActivityList.size();i++){
@@ -123,17 +201,30 @@ public class AndroidTransition {
 	}
 	private static List<Button> GetButtonList(Element at){
 		Element layout=at.getChild("view");
-		if(!layout.getAttribute("type", at.getNamespace("xsi")).equals("www.ObjectDiagram_Meta.com:ConstraintLayout")){
-			layout=null;
+		//System.out.println(layout);
+//		if(!layout.getAttribute("type", at.getNamespace("xsi")).equals("www.ObjectDiagram_Meta.com:ConstraintLayout")){
+//			layout=null;
+//			//return null;
+//		}
+//		System.out.println(layout);
+		List<Button> newList=new ArrayList<AndroidTransition.Button>();
+		List<Element> viewList=layout.getChildren("view");
+//		System.out.println(viewList);
+		for(Element v:viewList){
+			if(v.getAttributeValue("type",v.getNamespace("xsi")).equals("www.ObjectDiagram_Meta.com:Button")){
+				//System.out.println(true);
+				newList.add(ToButton(v));
+			}
 		}
-		return null;
+		//System.out.println(newList);
+		return newList;
 	}
 	private static class Activity{
 		String name;
 		String outgoing;
 		String incomeing;
 		boolean isMain=false;
-		List<Button> buttonList=new ArrayList<AndroidTransition.Button>();
+		List<Button> buttonList;
 	}
 	
 	private static class Transition{

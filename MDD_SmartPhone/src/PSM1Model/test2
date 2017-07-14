@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="GBK"?>
+<www.ObjectDiagram_Meta.com:Application xmlns:www.ObjectDiagram_Meta.com="www.ObjectDiagram_Meta.com" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmi:version="2.0" name="TwoPage">
+	<activity name="Screen1" isMain="true"><view xsi:type="www.ObjectDiagram_Meta.com:ConstraintLayout" name="Page1" id="Page1">
+		<view xsi:type="www.ObjectDiagram_Meta.com:TextView" name="Label1" id="Label1" horizontal="50" vertical="25" width="auto" height="auto" text="Screen1" />
+			<view xsi:type="www.ObjectDiagram_Meta.com:Button" name="NextButton" id="NextButton" horizontal="50" vertical="75" width="50" height="auto" text="Next" />
+			
+		</view>
+	</activity>
+	<activity name="Screen2">
+		<view xsi:type="www.ObjectDiagram_Meta.com:ConstraintLayout" name="Page2" id="Page2">
+			<view xsi:type="www.ObjectDiagram_Meta.com:TextView" name="Label2" id="Label2" horizontal="50" vertical="25" width="auto" height="auto" text="Screen2" />
+			
+		</view>
+	</activity>
+</www.ObjectDiagram_Meta.com:Application>
